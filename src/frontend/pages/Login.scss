@@ -1,0 +1,25 @@
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  & > .content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & > .heading {
+      font-size: 2rem;
+    }
+
+    & > label {
+      align-items: center;
+      display: flex;
+      justify-content: space-around;
+      width: 40vw;
+      margin: 10px;
+    }
+  }
+}
