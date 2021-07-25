@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import request from '../utils/requester';
 import Post from '../components/Post';
+import { useHistory, useParams } from 'react-router-dom';
 
 const Home = () => {
   const [response, setResponse] = useState([]);
+  const [openComments, setOpenComments] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     request('http://localhost:3001/', 'GET')
-      .then(r => {
-        r.forEach(row=>{
-          setResponse(response.push(row))
-        })
+      .then(r => Array.from(r.posts))
+      .then((postsArr) => {
+        setResponse(postsArr);
       });
   }, []);
 
@@ -20,8 +22,16 @@ const Home = () => {
     console.log(users[users.length - 1]);
   }
 
+  function clickPost(e) {
+    history.push(`/home/${e.target.id}`);
+    // setOpenComments(!openComments);
+  }
+
   const test = [
-    { title: 'Hello', comments: ['i\'m a comment', 'i\'m a comment2', 'i\'m a comment2', 'i\'m a comment2'] },
+    {
+      title: 'Hello',
+      comments: ['i\'m a comment', 'i\'m a comment2', 'i\'m a comment2', 'i\'m a comment2']
+    },
     {
       title: 'Hello',
       comments: ['i\'m a comment 2']
@@ -45,7 +55,7 @@ const Home = () => {
         </button>
       </div>
       <div>
-        <Post posts={test}/>
+        <Post posts={response} clickPost={clickPost} openComments={openComments}/>
       </div>
     </div>
   );

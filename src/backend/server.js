@@ -9,8 +9,8 @@ const port = 3001;
 const app = new Koa();
 
 app.use(logger());
-app.use(json());
 app.use(bodyParser());
+app.use(json());
 app.use(cors());
 app.use(router.routes()).use(router.allowedMethods());
 app.listen(port);

@@ -1,4 +1,4 @@
-import Router from 'koa-router'
+import Router from 'koa-router';
 import getAllPosts from './methods';
 
 const router = new Router();
@@ -6,7 +6,10 @@ const router = new Router();
 //GET request
 router.get('/', async (ctx) => {
   const response = await getAllPosts();
-  ctx.body = response.body;
+  ctx.body = {
+    posts: response.body
+  };
+
 });
 
-export default router
+export default router;
