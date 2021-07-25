@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import './post.scss';
-import { useParams } from 'react-router-dom';
 
 const Post = ({
   posts,
-  clickPost
+  clickPost,
+  upvote,
+  downvote
 }) => {
 
   return (
@@ -15,10 +16,8 @@ const Post = ({
           <h1 id={index} onClick={clickPost}>{post.title}</h1>
           <h2> - {post.autor}</h2>
           <h2>Upvotes: {post.upvotes}</h2>
-          {/*<div>{openComments && post.comments.map((comment, index) => (*/}
-          {/*  <div key={index}>{comment}</div>*/}
-          {/*))}*/}
-          {/*</div>*/}
+          <button onClick={upvote}>Upvote</button>
+          <button onClick={downvote}>Downvote</button>
         </div>
       )}
     </div>

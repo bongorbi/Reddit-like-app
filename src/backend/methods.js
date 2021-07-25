@@ -1,7 +1,27 @@
-import returnPosts from './Posts';
+import { returnPosts,createNewPost } from './Posts';
 
-const getAllPosts = async () => {
-  return {body: returnPosts(), status: 200};
+export const getAllPosts = async () => {
+  return {
+    body: returnPosts(),
+    status: 200
+  };
+};
+export const sendComment = async () => {
+  return {
+    body: returnPosts(),
+    status: 200
+  };
 };
 
-export default getAllPosts
+export const postNewPost = async ({
+  text,
+  autor
+}) => {
+  return {
+    body: createNewPost({
+      text,
+      autor
+    }),
+    status: 200
+  };
+};

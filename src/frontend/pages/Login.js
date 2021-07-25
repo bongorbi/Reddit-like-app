@@ -1,6 +1,7 @@
 import './Login.scss';
 import { useState } from 'react';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [pass, setPass] = useState('');
@@ -22,12 +23,12 @@ const Login = () => {
       });
       localStorage.setItem('users', JSON.stringify(a));
     }
-    history.push('/home');
+    history.push('/posts');
   }
 
   function loginOnEnter(e) {
     if (e.key === 'Enter') {
-      login()
+      login();
     }
   }
 

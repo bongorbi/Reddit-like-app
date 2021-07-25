@@ -1,8 +1,7 @@
 import Login from './pages/Login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import PostWithComments from './components/PostWithComments';
-
+import Posts from './pages/Posts';
+import TextareaWithButton from './components/TextareaWithButton';
 const App = () => {
   return (
     <Router>
@@ -11,11 +10,8 @@ const App = () => {
           <Route path="/login">
             <Login/>
           </Route>
-          <Route path="/home">
-            <Home/>
-          </Route>
-          <Route path="/:id" children={<Home />}>
-            <PostWithComments/>
+          <Route path="/posts" >
+            <Posts/>
           </Route>
         </Switch>
       </div>
