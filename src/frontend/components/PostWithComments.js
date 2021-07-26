@@ -4,6 +4,7 @@ import request from '../utils/requester';
 import './postWithComments.scss';
 import { basicURL } from '../utils/commonconstants';
 import { useState } from 'react';
+import VotingBtns from './VotingBtns';
 
 const PostWithComments = ({
   posts,
@@ -11,7 +12,7 @@ const PostWithComments = ({
   id
 }) => {
 
-  const [currentPost, setCurrentPost] = useState(posts[id])
+  const [currentPost, setCurrentPost] = useState(posts[id]);
 
   const commentText = (e) => e.target.value;
 
@@ -29,10 +30,10 @@ const PostWithComments = ({
 
     return (
       <div className="comment" style={{ marginLeft: margin }}>
-        <div className='commentInfo'>
-          <div>{comment.text}</div><div>Autor: {comment.autor} / Upvotes: {comment.upvotes}</div>
-          <button>⬆</button>
-          <button>⬇</button>
+        <div className="commentInfo">
+          <div>{comment.text}</div>
+          <div>Autor: {comment.autor} / Upvotes: {comment.upvotes}</div>
+          <VotingBtns />
         </div>
         <TextareaWithButton id={id}
                             OnBlur={commentText}

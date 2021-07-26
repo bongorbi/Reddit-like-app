@@ -43,9 +43,9 @@ const Posts = () => {
   }
 
   function logout() {
-    const users = JSON.parse(localStorage.getItem('users'));
-    users.pop();
-    localStorage.clear();
+    let users = JSON.parse(localStorage.getItem('users'));
+    users = users.filter(user => user.username !== currentUser.username);
+    localStorage.removeItem(currentUser.username);
     localStorage.setItem('users', JSON.stringify(users));
     history.push('/login');
   }
@@ -57,13 +57,12 @@ const Posts = () => {
   }
 
   function goBack() {
-    getAllPosts()
+    getAllPosts();
     setOpenComments(!openComments);
   }
 
   async function newComment(e) {
     try {
-      console.log(e);
       await request(`${basicURL}new_post`, 'POST', {
         autor: currentUser.username,
         text: e
@@ -75,12 +74,38 @@ const Posts = () => {
     }
   }
 
+  async function votingRequest(e) {
+    try {
+      let updatedComments = await request(`${basicURL}vote`, 'POST', {
+        currentComment: Number(e.id),
+        idSearch: Number(e.id),
+        vote: e.name
+      });
+      getAllPosts()
+      // console.log(updatedComments.response);
+      // setResponse(Array.from(updatedComments.response));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async function vote(e) {
+    switch (true) {
+      case e.name === 'upvote':
+        await votingRequest(e);
+        break;
+      case e.name === 'downvote':
+        await votingRequest(e);
+        break;
+    }
+  }
+
   return (
     <div className="wrapper">
       <div className="header">
         <button
           onClick={logout}>
-          Logout
+          Logout {currentUser?.username}
         </button>
         {openComments && <button
           onClick={goBack}>
@@ -91,8 +116,8 @@ const Posts = () => {
       <div>
         {!openComments &&
         <>
-          <h1 className='topic'>Topics</h1>
-          <Post posts={response} clickPost={clickPost}/>
+          <h1 className="topic">Topics</h1>
+          <Post posts={response} sendId={vote} clickPost={clickPost}/>
           <p>Create new post:</p>
           <TextareaWithButton sendText={newComment}>New Post</TextareaWithButton>
         </>

@@ -1,4 +1,4 @@
-import { returnPosts, createNewPost, createNewComment } from './Posts';
+import { returnPosts, createNewPost, createNewComment, commentVoting } from './Posts';
 
 export const getAllPosts = () => {
   return {
@@ -31,5 +31,19 @@ export const postNewPost = ({
       autor
     }),
     status: 200
+  };
+
+};
+export const vote = ({
+  currentComment,
+  idSearch,
+  vote
+}) => {
+  return {
+    response: commentVoting({
+      currentComment,
+      idSearch,
+      vote
+    })
   };
 };

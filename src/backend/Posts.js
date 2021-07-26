@@ -170,5 +170,26 @@ export const createNewComment = ({
   comment.children.push(newComment);
   return posts[currentComment];
 };
+export const commentVoting = ({
+  currentComment,
+  idSearch,
+  vote
+}) => {
+  const comment = findComment({
+    currentComment: posts[currentComment],
+    idSearch
+  });
+
+  switch (true) {
+    case vote === 'downvote':
+      comment.upvotes--;
+      break;
+    case vote === 'upvote':
+      comment.upvotes++;
+      break;
+  }
+
+  return posts[idSearch];
+};
 
 

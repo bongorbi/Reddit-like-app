@@ -1,12 +1,23 @@
 import PropTypes from 'prop-types';
 import './post.scss';
+import VotingBtns from './VotingBtns';
+import { useState } from 'react';
 
 const Post = ({
   posts,
   clickPost,
-  upvote,
-  downvote
+  sendId
 }) => {
+  const [id, setId] = useState('');
+
+  function onClick(post) {
+    console.log(post.target.id);
+    setId(post.target.id);
+    sendId({
+      id: post.target.id,
+      name: post.target.name
+    });
+  }
 
   return (
     <div>
@@ -17,8 +28,7 @@ const Post = ({
             <p onClick={clickPost} id={index}>/ Autor: {post.autor}</p>
             <p onClick={clickPost} id={index}> / Upvotes: {post.upvotes}</p>
           </div>
-          <button onClick={upvote}>Upvote</button>
-          <button onClick={downvote}>Downvote</button>
+          <VotingBtns id={post.id} downvote={onClick} upvote={onClick}/>
         </div>
       )}
     </div>
