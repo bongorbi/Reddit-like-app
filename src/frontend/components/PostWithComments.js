@@ -6,37 +6,49 @@ import './postWithComments.scss';
 const PostWithComments = ({
   posts,
   clickPost,
-  openComments,
   id
 }) => {
   const currentPost = posts[id];
-  const commentText = (e) => e.target.value;
-  const sendText = () => {
-    // request('http://localhost:3001/', 'POST',)
-  };
 
-  const DetailsForComment = ({ comment }) => {
+  const commentText = (e) => e.target.value;
+
+  const DetailsForComment = ({
+    comment,
+    sendTxt
+  }) => {
+    function sendTextFromTxtbox(e) {
+      sendTxt(e);
+    }
+
     return (
-      <div><h2>{comment.text}- {comment.autor} {comment.upvotes}</h2>
+      <div><h2>{comment.text} - {comment.autor} {comment.upvotes}</h2>
         <TextareaWithButton id={id}
                             OnBlur={commentText}
-                            sendText={sendText}/>
+                            sendText={sendTextFromTxtbox}/>
       </div>
     );
   };
 
   const ChildComments = ({
     comment,
-    indent
+    indent,
   }) => {
+    const sendComment = async () => {
+      const res = await request('http://localhost:3001/test', 'POST', {
+        currentPost,
+        id:0
+      });
+      console.log(res);
+      // sendTxt(e)
+    };
     return (
       <>
-        <DetailsForComment comment={comment}/>
+        <DetailsForComment key={id++} comment={comment} sendTxt={sendComment}/>
         {comment.children?.map(child => {
           return (
             <>
-              {"===".repeat(indent)}
-              <ChildComments comment={child} indent={indent + 1}/>
+              {'==='.repeat(indent)}
+              <ChildComments comment={child} key={id++} indent={indent + 1}/>
             </>
           );
         })}

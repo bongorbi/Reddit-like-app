@@ -64,7 +64,7 @@ const Posts = () => {
       console.log(e);
       await request(`${basicUrl}new_post`, 'POST', {
         autor: currentUser.username,
-        text: e,
+        text: e
       });
       getAllPosts();
       console.log(response);
