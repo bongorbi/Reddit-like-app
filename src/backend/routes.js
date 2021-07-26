@@ -5,21 +5,21 @@ const router = new Router();
 
 //GET request
 router.get('/', async (ctx) => {
-  const response = await getAllPosts();
+  const response = getAllPosts();
   ctx.body = {
     posts: response.body
   };
 
-  router.post('/test', async (ctx) => {
+  router.post('/new_comment', async (ctx) => {
     let bodyParams = ctx.request.body;
-    const response = await postNewComment(bodyParams);
+    const response = postNewComment(bodyParams);
     ctx.response.status = 200;
     ctx.body = response;
   });
 
   router.post('/new_post', async (ctx) => {
     let bodyParams = ctx.request.body;
-    let post = await postNewPost(bodyParams);
+    let post = postNewPost(bodyParams);
     //If the post is added successfully 200 status code is sent as the response
     ctx.response.status = 200;
     ctx.body = post;

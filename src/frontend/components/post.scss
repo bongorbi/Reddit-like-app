@@ -1,9 +1,24 @@
-.post{
+.post {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-  &>*{
-    margin-right: 10px;
+  text-align: center;
+  border-bottom: 2px outset salmon;
+  border-left: 1px outset darksalmon;
+  margin: 0 0 10px 0;
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+  }
+
+  & p {
+    padding: 0 5px;
+    cursor: pointer;
+  }
+
+  & > * {
+    margin: 10px;
   }
 }

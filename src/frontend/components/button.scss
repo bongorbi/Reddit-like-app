@@ -1,0 +1,20 @@
+button {
+  min-height: var(--btnMinHeight, 100%);
+  box-sizing: border-box;
+  border: 1px black solid;
+  border-radius: 2px;
+  border-bottom: 2px outset;
+  border-left: 2px outset;
+  background-color: #ff3b00a8;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  white-space: nowrap;
+  outline: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1rem;
+  width: 100px;
+}

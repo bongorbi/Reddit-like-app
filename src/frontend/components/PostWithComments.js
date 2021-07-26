@@ -2,53 +2,68 @@ import PropTypes from 'prop-types';
 import TextareaWithButton from './TextareaWithButton';
 import request from '../utils/requester';
 import './postWithComments.scss';
+import { basicURL } from '../utils/commonconstants';
+import { useState } from 'react';
 
 const PostWithComments = ({
   posts,
   clickPost,
   id
 }) => {
-  const currentPost = posts[id];
+
+  const [currentPost, setCurrentPost] = useState(posts[id])
 
   const commentText = (e) => e.target.value;
 
   const DetailsForComment = ({
     comment,
-    sendTxt
+    sendTxt,
+    margin
   }) => {
-    function sendTextFromTxtbox(e) {
-      sendTxt(e);
+    function sendTextAndIdFromTxtbox(e) {
+      sendTxt({
+        text: e,
+        id: comment.id
+      });
     }
 
     return (
-      <div><h2>{comment.text} - {comment.autor} {comment.upvotes}</h2>
+      <div className="comment" style={{ marginLeft: margin }}>
+        <div className='commentInfo'>
+          <div>{comment.text}</div><div>Autor: {comment.autor} / Upvotes: {comment.upvotes}</div>
+          <button>⬆</button>
+          <button>⬇</button>
+        </div>
         <TextareaWithButton id={id}
                             OnBlur={commentText}
-                            sendText={sendTextFromTxtbox}/>
+                            sendText={sendTextAndIdFromTxtbox}/>
       </div>
     );
   };
 
+  const sendComment = async (e) => {
+    const res = await request(`${basicURL}new_comment`, 'POST', {
+      currentComment: currentPost.id,
+      idSearch: Number(e.id),
+      text: e.text
+    });
+    setCurrentPost(res.body);
+  };
+  const marginSetter = (ident) => {
+    return `${ident * 50}px`;
+  };
+
   const ChildComments = ({
     comment,
-    indent,
+    indent
   }) => {
-    const sendComment = async () => {
-      const res = await request('http://localhost:3001/test', 'POST', {
-        currentPost,
-        id:0
-      });
-      console.log(res);
-      // sendTxt(e)
-    };
     return (
       <>
-        <DetailsForComment key={id++} comment={comment} sendTxt={sendComment}/>
-        {comment.children?.map(child => {
+        <DetailsForComment margin={marginSetter(indent)} comment={comment} sendTxt={sendComment}/>
+        {comment.children?.map((child, index) => {
           return (
             <>
-              {'==='.repeat(indent)}
-              <ChildComments comment={child} key={id++} indent={indent + 1}/>
+              <ChildComments key={`${child.id}-${index}`} comment={child} indent={indent + 1}/>
             </>
           );
         })}
@@ -59,16 +74,14 @@ const PostWithComments = ({
   return (
     <div className="wrapper">
       {currentPost &&
-      <div>
-        <h1 onClick={clickPost}>Title: {currentPost.title}</h1>
-        {ChildComments({
-          comment: currentPost,
-          indent: 0
-        })}
+      <div className="allCommentsContainer">
+        <p onClick={clickPost}>Title: {currentPost.title} / Autor: <span>{currentPost.autor}</span></p>
+        <ChildComments key={`${currentPost.id}-0`} comment={currentPost} indent={0}/>
       </div>}
     </div>
   );
 };
+
 PostWithComments.defaultProps = {
   posts: [],
   openComments: false,

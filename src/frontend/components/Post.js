@@ -11,11 +11,12 @@ const Post = ({
   return (
     <div>
       {posts.length > 0 && posts.map((post, index) =>
-        <div className={'post'} key={index}>
-          <p>{index}</p>
-          <h1 id={index} onClick={clickPost}>{post.title}</h1>
-          <h2> - {post.autor}</h2>
-          <h2>Upvotes: {post.upvotes}</h2>
+        <div className="post" key={index}>
+          <div>
+            <p onClick={clickPost} id={index}>{post.title}</p>
+            <p onClick={clickPost} id={index}>/ Autor: {post.autor}</p>
+            <p onClick={clickPost} id={index}> / Upvotes: {post.upvotes}</p>
+          </div>
           <button onClick={upvote}>Upvote</button>
           <button onClick={downvote}>Downvote</button>
         </div>

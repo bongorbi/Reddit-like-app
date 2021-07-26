@@ -4,6 +4,8 @@ import Post from '../components/Post';
 import { Route, useHistory } from 'react-router-dom';
 import PostWithComments from '../components/PostWithComments';
 import TextareaWithButton from '../components/TextareaWithButton';
+import './Posts.scss';
+import { basicURL } from '../utils/commonconstants';
 
 const Posts = () => {
   const [response, setResponse] = useState([]);
@@ -11,10 +13,9 @@ const Posts = () => {
   const [postId, setPostId] = useState();
   const [currentUser, setCurrentUser] = useState();
   const history = useHistory();
-  const basicUrl = 'http://localhost:3001/';
 
   function getAllPosts() {
-    request(basicUrl, 'GET')
+    request(basicURL, 'GET')
       .then(r => Array.from(r.posts))
       .then((postsArr) => {
         setResponse(postsArr);
@@ -51,18 +52,19 @@ const Posts = () => {
 
   function clickPost(e) {
     setPostId(e.target.id);
-    showOrHideComments();
+    setOpenComments(!openComments);
     history.push(`/posts/comments/${e.target.id}`);
   }
 
-  function showOrHideComments() {
+  function goBack() {
+    getAllPosts()
     setOpenComments(!openComments);
   }
 
   async function newComment(e) {
     try {
       console.log(e);
-      await request(`${basicUrl}new_post`, 'POST', {
+      await request(`${basicURL}new_post`, 'POST', {
         autor: currentUser.username,
         text: e
       });
@@ -74,15 +76,14 @@ const Posts = () => {
   }
 
   return (
-    <div>
-      <div>
-        HOME
+    <div className="wrapper">
+      <div className="header">
         <button
           onClick={logout}>
           Logout
         </button>
         {openComments && <button
-          onClick={showOrHideComments}>
+          onClick={goBack}>
           Back
         </button>
         }
@@ -90,8 +91,9 @@ const Posts = () => {
       <div>
         {!openComments &&
         <>
+          <h1 className='topic'>Topics</h1>
           <Post posts={response} clickPost={clickPost}/>
-          <h3>Create new post</h3>
+          <p>Create new post:</p>
           <TextareaWithButton sendText={newComment}>New Post</TextareaWithButton>
         </>
         }

@@ -1,8 +1,40 @@
+@import "./button";
+
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  & > button {
-    height: 100%;
+
+  & .allCommentsContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5%;
+  }
+
+  & .comment {
+    border-bottom: 2px outset salmon;
+    border-left: 1px outset darksalmon;
+    padding: 0 0 5px 5px;
+    margin: 5px 0;
+  }
+
+
+}
+
+.commentInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  &> button{
+    margin: 0 5px;
+  }
+}
+
+.txtWithButton {
+  display: flex;
+
+  & > textarea {
+    resize: none;
   }
 }

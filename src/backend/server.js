@@ -5,7 +5,7 @@ import json from 'koa-json';
 import logger from 'koa-logger';
 import cors from '@koa/cors';
 
-const port = 3001;
+const port = 3002;
 const app = new Koa();
 
 app.use(logger());

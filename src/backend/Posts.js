@@ -1,4 +1,4 @@
-const posts = [
+/*const posts = [
   {
     id: 0,
     title: 'Hello',
@@ -33,17 +33,20 @@ const posts = [
         id: 2,
         text: 'i\'m a comment2',
         upvotes: 0,
-        autor: 'Bobi'
+        autor: 'Bobi',
+        children: [],
       }, {
         id: 3,
         text: 'i\'m a comment231',
         upvotes: 0,
-        autor: 'Joro'
+        autor: 'Joro',
+        children: [],
       }, {
         id: 5,
         text: 'i\'m a comment3',
         upvotes: 0,
-        autor: 'Denis'
+        autor: 'Denis',
+        children: [],
       }]
   },
   {
@@ -56,31 +59,55 @@ const posts = [
         id: 8,
         text: 'i\'m a comment1',
         upvotes: 0,
-        autor: 'Vasil'
+        autor: 'Vasil',
+        children: [],
       }, {
         id: 9,
         text: 'i\'m a comment2',
         upvotes: 0,
-        autor: 'Vasil'
+        autor: 'Vasil',
+        children: [],
       }, {
         id: 10,
         text: 'i\'m a comment231',
         upvotes: 0,
-        autor: 'Joro'
+        autor: 'Joro',
+        children: [],
       }, {
         id: 11,
         text: 'i\'m a comment3',
         upvotes: 0,
-        autor: 'Denis'
+        autor: 'Denis',
+        children: [],
       }]
-  }];
-let id = 12;
+  }];*/
+const posts = [
+  {
+    id: 0,
+    title: 'Hello',
+    text: 'asd',
+    upvotes: 0,
+    autor: 'Vasil',
+    children: [
+      {
+        id: 1,
+        text: 'i\'m a comment1',
+        upvotes: 0,
+        autor: 'Pesho',
+        children: []
+      }
+    ]
+  }
+];
+
+// latest ID of a comment (represents a db count)
+let id = 1;
 
 export const returnPosts = () => {
   return posts;
 };
 const idSetter = () => {
-  return id += 1;
+  return ++id;
 };
 export const createNewPost = ({
   text,
@@ -102,52 +129,46 @@ export const createNewPost = ({
   };
 };
 
-const findComment = async ({
+const findComment = ({
   currentComment,
   idSearch
 }) => {
-  console.log(currentComment, idSearch);
   if (currentComment.id === idSearch) {
-    console.log(currentComment, 'first if');
     return currentComment;
   } else {
+    let comment;
     currentComment.children.forEach(child => {
       const result = findComment({
-        child,
+        currentComment: child,
         idSearch
       });
-      console.log(result, 'else');
       if (!!result) {
-        console.log(child, 'else -> if');
-        return child;
+        comment = result;
       }
     });
-    // const results = currentComment.children.map(child => findComment(child, idSearch));
-    // return results.filter(res => !!res);
+    return comment;
   }
 };
-export const createNewComment = async ({
+export const createNewComment = ({
   currentComment,
-  idSearch
+  idSearch,
+  text
 }) => {
-  const newComment = await findComment({
-    currentComment,
-    idSearch
+  const comment = findComment({
+    currentComment: posts[currentComment],
+    idSearch,
+    text
   });
-  posts.push({
+  const newComment = {
     id: idSetter(),
-    autor: newComment.autor,
-    title: newComment.text,
-    upvotes: 0,
-    children: []
-  });
-  return {
-    id,
-    autor: newComment.autor,
-    title: newComment.text,
+    autor: comment.autor,
+    text,
+    title: comment.text,
     upvotes: 0,
     children: []
   };
+  comment.children.push(newComment);
+  return posts[currentComment];
 };
 
 

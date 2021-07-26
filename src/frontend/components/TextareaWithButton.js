@@ -1,16 +1,24 @@
+import { useState } from 'react';
+import './postWithComments.scss';
+
 const TextareaWithButton = ({
   id,
-  sendText,
+  sendText
 }) => {
+  const [text, setText] = useState('');
 
-  function onBlur(e){
-    sendText(e.target.value);
+  function onBlur(e) {
+    setText(e.target.value);
+  }
+
+  function onClick() {
+    sendText(text);
   }
 
   return (
-    <div>
-      <textarea id={id} onBlur={onBlur} />
-      <button onClick={sendText}>Send</button>
+    <div className="txtWithButton">
+      <textarea cols="50" rows="3" id={id} onBlur={onBlur}/>
+      <button onClick={onClick}>Send</button>
     </div>
   );
 };

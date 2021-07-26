@@ -1,25 +1,27 @@
 import { returnPosts, createNewPost, createNewComment } from './Posts';
 
-export const getAllPosts = async () => {
+export const getAllPosts = () => {
   return {
     body: returnPosts(),
     status: 200
   };
 };
 
-export const postNewComment = async ({
+export const postNewComment = ({
   currentComment,
-  idSearch
+  idSearch,
+  text
 }) => {
   return {
     body: createNewComment({
       currentComment,
-      idSearch
+      idSearch,
+      text
     }),
     status: 200
   };
 };
-export const postNewPost = async ({
+export const postNewPost = ({
   text,
   autor
 }) => {
