@@ -19,7 +19,8 @@ const PostWithComments = ({
   const DetailsForComment = ({
     comment,
     sendTxt,
-    margin
+    margin,
+    sendId
   }) => {
     function sendTextAndIdFromTxtbox(e) {
       sendTxt({
@@ -27,15 +28,24 @@ const PostWithComments = ({
         id: comment.id
       });
     }
+    const [id, setId] = useState('');
 
+    function onClick(post) {
+      console.log(post.target.id);
+      // setId(post.target.id);
+      // sendId({
+      //   id: post.target.id,
+      //   name: post.target.name
+      // });
+    }
     return (
       <div className="comment" style={{ marginLeft: margin }}>
         <div className="commentInfo">
           <div>{comment.text}</div>
           <div>Autor: {comment.autor} / Upvotes: {comment.upvotes}</div>
-          <VotingBtns />
+          <VotingBtns id={comment.id} downvote={onClick} upvote={onClick}/>
         </div>
-        <TextareaWithButton id={id}
+        <TextareaWithButton id={comment.id}
                             OnBlur={commentText}
                             sendText={sendTextAndIdFromTxtbox}/>
       </div>
@@ -48,7 +58,7 @@ const PostWithComments = ({
       idSearch: Number(e.id),
       text: e.text
     });
-    setCurrentPost(res.body);
+    setCurrentPost(res);
   };
   const marginSetter = (ident) => {
     return `${ident * 50}px`;

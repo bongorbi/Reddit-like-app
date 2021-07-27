@@ -8,11 +8,9 @@ const Post = ({
   clickPost,
   sendId
 }) => {
-  const [id, setId] = useState('');
 
   function onClick(post) {
     console.log(post.target.id);
-    setId(post.target.id);
     sendId({
       id: post.target.id,
       name: post.target.name

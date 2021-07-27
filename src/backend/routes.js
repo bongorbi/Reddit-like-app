@@ -6,9 +6,7 @@ const router = new Router();
 //GET request
 router.get('/', async (ctx) => {
   const response = getAllPosts();
-  ctx.body = {
-    posts: response.body
-  };
+  ctx.body = response.body;
 
   router.post('/new_comment', async (ctx) => {
     let bodyParams = ctx.request.body;
@@ -24,6 +22,7 @@ router.get('/', async (ctx) => {
     ctx.response.status = 200;
     ctx.body = post;
   });
+
   router.post('/vote', async (ctx) => {
     let bodyParams = ctx.request.body;
     let post = vote(bodyParams);

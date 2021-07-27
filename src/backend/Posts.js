@@ -120,13 +120,7 @@ export const createNewPost = ({
     upvotes: 0,
     children: []
   });
-  return {
-    id,
-    autor: autor,
-    title: text,
-    upvotes: 0,
-    children: []
-  };
+  return posts
 };
 
 const findComment = ({
@@ -170,6 +164,7 @@ export const createNewComment = ({
   comment.children.push(newComment);
   return posts[currentComment];
 };
+
 export const commentVoting = ({
   currentComment,
   idSearch,
@@ -189,7 +184,7 @@ export const commentVoting = ({
       break;
   }
 
-  return posts[idSearch];
+  return posts;
 };
 
 

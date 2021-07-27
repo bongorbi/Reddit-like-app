@@ -16,7 +16,7 @@ const Posts = () => {
 
   function getAllPosts() {
     request(basicURL, 'GET')
-      .then(r => Array.from(r.posts))
+      .then(r => Array.from(r))
       .then((postsArr) => {
         setResponse(postsArr);
       });
@@ -47,7 +47,7 @@ const Posts = () => {
     users = users.filter(user => user.username !== currentUser.username);
     localStorage.removeItem(currentUser.username);
     localStorage.setItem('users', JSON.stringify(users));
-    history.push('/login');
+    history.push('/');
   }
 
   function clickPost(e) {
@@ -57,18 +57,16 @@ const Posts = () => {
   }
 
   function goBack() {
-    getAllPosts();
     setOpenComments(!openComments);
   }
 
-  async function newComment(e) {
+  async function newPost(e) {
     try {
-      await request(`${basicURL}new_post`, 'POST', {
+      const updatedPosts = await request(`${basicURL}new_post`, 'POST', {
         autor: currentUser.username,
         text: e
       });
-      getAllPosts();
-      console.log(response);
+      setResponse(updatedPosts)
     } catch (e) {
       console.log(e);
     }
@@ -81,9 +79,9 @@ const Posts = () => {
         idSearch: Number(e.id),
         vote: e.name
       });
-      getAllPosts()
-      // console.log(updatedComments.response);
-      // setResponse(Array.from(updatedComments.response));
+      let updatedCommentsArr = [];
+      updatedComments.forEach(post => updatedCommentsArr.push(post));
+      setResponse(updatedCommentsArr);
     } catch (e) {
       console.log(e);
     }
@@ -119,7 +117,7 @@ const Posts = () => {
           <h1 className="topic">Topics</h1>
           <Post posts={response} sendId={vote} clickPost={clickPost}/>
           <p>Create new post:</p>
-          <TextareaWithButton sendText={newComment}>New Post</TextareaWithButton>
+          <TextareaWithButton sendText={newPost}>New Post</TextareaWithButton>
         </>
         }
         {openComments &&
