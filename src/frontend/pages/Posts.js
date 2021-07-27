@@ -75,8 +75,7 @@ const Posts = () => {
   async function votingRequest(e) {
     try {
       let updatedComments = await request(`${basicURL}vote`, 'POST', {
-        currentComment: Number(e.id),
-        idSearch: Number(e.id),
+        currentPost: Number(e.id),
         vote: e.name
       });
       let updatedCommentsArr = [];

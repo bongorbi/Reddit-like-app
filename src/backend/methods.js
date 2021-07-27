@@ -1,4 +1,4 @@
-import { commentVoting, createNewComment, createNewPost, returnPosts } from './Posts';
+import { postVoting, createNewComment, createNewPost, returnPosts } from './Posts';
 
 export const getAllPosts = () => {
   return {
@@ -28,13 +28,11 @@ export const postNewPost = ({
   });
 };
 export const vote = ({
-  currentComment,
-  idSearch,
+  currentPost,
   vote
 }) => {
-  return commentVoting({
-    currentComment,
-    idSearch,
+  return postVoting({
+    currentPost,
     vote
   });
 };

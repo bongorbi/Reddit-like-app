@@ -120,7 +120,7 @@ export const createNewPost = ({
     upvotes: 0,
     children: []
   });
-  return posts
+  return posts;
 };
 
 const findComment = ({
@@ -165,16 +165,11 @@ export const createNewComment = ({
   return posts[currentComment];
 };
 
-export const commentVoting = ({
-  currentComment,
-  idSearch,
+export const postVoting = ({
+  currentPost,
   vote
 }) => {
-  const comment = findComment({
-    currentComment: posts[currentComment],
-    idSearch
-  });
-
+  const comment = posts.find(post => post.id === currentPost);
   switch (true) {
     case vote === 'downvote':
       comment.upvotes--;
