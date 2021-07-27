@@ -5,7 +5,7 @@ The application is something like a simple reddit for posts. It has backend and 
 ## Backend
 
 Contains koa server which is working on port 3002. Contains Posts.js file that stores the test data and the methods for
-it. Methods.js file maps and contains the exported methods from posts.js and exports them to the router.js. Router.js
+it. Methods.js file maps and contains the exported methods from posts.test.js and exports them to the router.js. Router.js
 contains all the endpoints of the server.
 
 ## Frontend
@@ -24,12 +24,17 @@ This project uses [node](http://nodejs.org), [npm](https://npmjs.com), [koa](htt
 ```sh
 $ npm install
 ```
+
 After that you can start the project using
+
 ```sh
 $ npm run server
 ```
-to start the koa server and 
+
+to start the koa server and
+
 ```sh
 $ npm run serve
 ```
-to start the React app.
+
+to start the React app. After that go on http://localhost:3000 and the app is running. 
