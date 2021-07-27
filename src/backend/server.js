@@ -8,14 +8,13 @@ import cors from '@koa/cors';
 const port = 3002;
 const app = new Koa();
 
-export function startServer() {
+export function startServer(serverPort) {
   app.use(logger());
   app.use(bodyParser());
   app.use(json());
   app.use(cors());
   app.use(router.routes()).use(router.allowedMethods());
-  app.listen(port);
-  console.log(`Application is running on port ${port}`);
+  return app.listen(serverPort || port);
 }
 
 startServer();
