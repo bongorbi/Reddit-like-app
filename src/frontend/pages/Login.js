@@ -7,22 +7,15 @@ const Login = () => {
   const [pass, setPass] = useState('');
   const history = useHistory();
 
+  // storing the users in the local storage
   function login() {
-    let a = [];
-    if (localStorage.getItem('users')) {
-      a = JSON.parse(localStorage.getItem('users')) || [];
-      a.push({
-        'username': username,
-        'password': pass
-      });
-      localStorage.setItem('users', JSON.stringify(a));
-    } else {
-      a.push({
-        'username': username,
-        'password': pass
-      });
-      localStorage.setItem('users', JSON.stringify(a));
-    }
+    let arr = [];
+    arr = JSON.parse(localStorage.getItem('users')) || [];
+    arr.push({
+      'username': username,
+      'password': pass
+    });
+    localStorage.setItem('users', JSON.stringify(arr));
     history.push('/posts');
   }
 
@@ -31,7 +24,7 @@ const Login = () => {
       login();
     }
   }
-
+// login component with 2 inputs - username and password and 1 button for login
   return (
     <div className={'page-wrapper'}>
       <div className={'content'}>

@@ -25,6 +25,7 @@ const TextareaWithButton = ({
     });
   }
 
+// input for title of the post, textarea for commenting and buttons for upvote and downvote
   return (
     <div className="txtWithButton">
       {showTitleField &&

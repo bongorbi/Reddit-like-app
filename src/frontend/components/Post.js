@@ -16,6 +16,7 @@ const Post = ({
     });
   }
 
+  // component that contains the post and it's attributes
   return (
     <div>
       {posts.length > 0 && posts.map((post, index) =>

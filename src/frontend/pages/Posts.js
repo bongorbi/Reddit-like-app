@@ -6,6 +6,7 @@ import PostWithComments from '../components/PostWithComments';
 import TextareaWithButton from '../components/TextareaWithButton';
 import './Posts.scss';
 import { basicURL } from '../utils/commonconstants';
+import { updateVote } from '../utils/votingFunctions';
 
 const Posts = () => {
     const [response, setResponse] = useState([]);
@@ -37,7 +38,7 @@ const Posts = () => {
       }
     }, [openComments]);
 
-
+    // searching the current user and removing him from the local storage
     function logout() {
       let users = JSON.parse(localStorage.getItem('users'));
       users = users.filter(user => user.username !== currentUser.username);
@@ -71,15 +72,14 @@ const Posts = () => {
       }
     }
 
-    async function votingRequest(e) {
+    // POST request for updating the vote
+    async function vote(e) {
       try {
-        let updatedComments = await request(`${basicURL}vote`, 'POST', {
+        const updatedComments = await updateVote(e, 'post_vote', {
           currentPost: Number(e.id),
           vote: e.name
         });
-        let updatedCommentsArr = [];
-        updatedComments.forEach(post => updatedCommentsArr.push(post));
-        setResponse(updatedCommentsArr);
+        setResponse(updatedComments);
       } catch (e) {
         console.log(e);
       }
@@ -87,25 +87,13 @@ const Posts = () => {
 
     function getLastUser(setter) {
       const users = JSON.parse(localStorage.getItem('users'));
-      // взима последния потребител, който се е логнал
       setter(users[users.length - 1]);
-    }
-
-    async function vote(e) {
-      switch (true) {
-        case e.name === 'upvote':
-          await votingRequest(e);
-          break;
-        case e.name === 'downvote':
-          await votingRequest(e);
-          break;
-      }
     }
 
     function openOrCloseCommentBox() {
       setShowCommentTxtBox(!showCommentTxtBox);
     }
-
+    // rendering the header buttons and the posts
     return (
       <div className="wrapper">
         <div className="header">

@@ -5,6 +5,7 @@ import './postWithComments.scss';
 import { basicURL } from '../utils/commonconstants';
 import { useState } from 'react';
 import VotingBtns from './VotingBtns';
+import { updateVote } from '../utils/votingFunctions';
 
 const PostWithComments = ({
   posts,
@@ -13,6 +14,7 @@ const PostWithComments = ({
 }) => {
   const [currentPost, setCurrentPost] = useState(posts[id]);
   const commentText = (e) => e.target.value;
+
   const DetailsForComment = ({
     comment,
     sendTxt,
@@ -25,9 +27,10 @@ const PostWithComments = ({
       });
     }
 
-    async function votingRequest(e) {
+    // POST request for updating the vote
+    async function vote(e) {
       try {
-        let updatedComments = await request(`${basicURL}comment_vote`, 'POST', {
+        const updatedComments = await updateVote(e, 'comment_vote', {
           currentComment: currentPost.id,
           idSearch: Number(e.target.id),
           vote: e.target.name
@@ -38,17 +41,8 @@ const PostWithComments = ({
       }
     }
 
-    async function vote(e) {
-      switch (true) {
-        case e.target.name === 'upvote':
-          await votingRequest(e);
-          break;
-        case e.target.name === 'downvote':
-          await votingRequest(e);
-          break;
-      }
-    }
 
+    // comment component that goes right if it is a child comment; including details for commment and controlls for the user
     return (
       <div className="comment" style={{ marginLeft: margin }}>
         <div>
@@ -67,7 +61,6 @@ const PostWithComments = ({
   };
 
   const sendComment = async (e) => {
-    console.log(e);
     const res = await request(`${basicURL}new_comment`, 'POST', {
       currentComment: currentPost.id,
       idSearch: Number(e.id),
@@ -76,10 +69,12 @@ const PostWithComments = ({
     });
     setCurrentPost(res);
   };
+
   const marginSetter = (ident) => {
     return `${ident * 50}px`;
   };
 
+  // recursively rendering child comments, with details and controls per comment
   const ChildComments = ({
     comment,
     indent
@@ -97,7 +92,7 @@ const PostWithComments = ({
       </>
     );
   };
-
+  // the main component that is rendreding for the comments
   return (
     <div className="wrapper">
       {currentPost &&

@@ -4,18 +4,18 @@ import { commentVoting } from './Posts';
 
 const router = new Router();
 
-//GET request
+//getting all the posts
 router.get('/', async (ctx) => {
   const response = getAllPosts();
   ctx.body = response.body;
-
+// commenting post
   router.post('/new_comment', async (ctx) => {
     let bodyParams = ctx.request.body;
     const response = postNewComment(bodyParams);
     ctx.response.status = 200;
     ctx.body = response;
   });
-
+// creating new post
   router.post('/new_post', async (ctx) => {
     let bodyParams = ctx.request.body;
     let post = postNewPost(bodyParams);
@@ -23,14 +23,15 @@ router.get('/', async (ctx) => {
     ctx.response.status = 200;
     ctx.body = post;
   });
-
-  router.post('/vote', async (ctx) => {
+//voting post
+  router.post('/post_vote', async (ctx) => {
     let bodyParams = ctx.request.body;
     let post = vote(bodyParams);
     //If the post is added successfully 200 status code is sent as the response
     ctx.response.status = 200;
     ctx.body = post;
   });
+  //voting comment
   router.post('/comment_vote', async (ctx) => {
     let bodyParams = ctx.request.body;
     let post = commentVoting(bodyParams);
@@ -38,7 +39,6 @@ router.get('/', async (ctx) => {
     ctx.response.status = 200;
     ctx.body = post;
   });
-
 
 });
 

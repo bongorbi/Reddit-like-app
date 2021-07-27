@@ -1,86 +1,4 @@
-/*const posts = [
-  {
-    id: 0,
-    title: 'Hello',
-    text: 'asd',
-    upvotes: 0,
-    autor: 'Vasil',
-    children: [
-      {
-        //add ids
-        id: 1,
-        text: 'i\'m a comment1',
-        upvotes: 0,
-        autor: 'Pesho',
-        children: [
-          {
-            id: 4,
-            text: 'i\'m a innner comment2',
-            upvotes: 0,
-            autor: 'Todor',
-            children: [
-              {
-                id: 6,
-                text: 'i\'m a innner comment3',
-                upvotes: 0,
-                autor: 'Mitko',
-                children: []
-              }
-            ]
-          }
-        ]
-      }, {
-        id: 2,
-        text: 'i\'m a comment2',
-        upvotes: 0,
-        autor: 'Bobi',
-        children: [],
-      }, {
-        id: 3,
-        text: 'i\'m a comment231',
-        upvotes: 0,
-        autor: 'Joro',
-        children: [],
-      }, {
-        id: 5,
-        text: 'i\'m a comment3',
-        upvotes: 0,
-        autor: 'Denis',
-        children: [],
-      }]
-  },
-  {
-    id: 7,
-    title: 'Post2',
-    upvotes: 2,
-    autor: 'Joro',
-    children: [
-      {
-        id: 8,
-        text: 'i\'m a comment1',
-        upvotes: 0,
-        autor: 'Vasil',
-        children: [],
-      }, {
-        id: 9,
-        text: 'i\'m a comment2',
-        upvotes: 0,
-        autor: 'Vasil',
-        children: [],
-      }, {
-        id: 10,
-        text: 'i\'m a comment231',
-        upvotes: 0,
-        autor: 'Joro',
-        children: [],
-      }, {
-        id: 11,
-        text: 'i\'m a comment3',
-        upvotes: 0,
-        autor: 'Denis',
-        children: [],
-      }]
-  }];*/
+// test data
 const posts = [
   {
     id: 0,
@@ -136,6 +54,7 @@ export const returnPosts = () => {
 const idSetter = () => {
   return ++id;
 };
+
 export const createNewPost = ({
   title,
   text,
@@ -151,7 +70,7 @@ export const createNewPost = ({
   });
   return posts;
 };
-
+// function that recursively goes through tree of comments while it finds the searched id
 const findComment = ({
   currentComment,
   idSearch
@@ -169,10 +88,10 @@ const findComment = ({
         comment = result;
       }
     });
-    console.log(comment);
     return comment;
   }
 };
+
 export const createNewComment = ({
   currentComment,
   idSearch,

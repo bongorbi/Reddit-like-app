@@ -50,7 +50,7 @@ describe('backend tests', () => {
     expect(error).toBe(false);
     expect(status).toBe(200);
   });
-  test('"/vote" should vote with +1 to a post', async () => {
+  test('"/post_vote" should vote with +1 to a post', async () => {
     const newResourceBody = {
       currentPost: 0,
       vote: 'upvote'
@@ -59,7 +59,7 @@ describe('backend tests', () => {
       error,
       status,
       body
-    } = await request.post('/vote').send(newResourceBody);
+    } = await request.post('/post_vote').send(newResourceBody);
     expect(body.length).toBe(2);
     expect(body[0].upvotes).toBe(1);
     expect(error).toBe(false);
