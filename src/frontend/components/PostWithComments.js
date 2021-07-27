@@ -49,7 +49,7 @@ const PostWithComments = ({
           <div className="commentInfo">
             <div className="text">{comment.text}</div>
             <div className="details">
-              Autor: {comment.autor} Upvotes: {comment.upvotes}<VotingBtns id={comment.id} downvote={vote}
+              Author: {comment.author} Upvotes: {comment.upvotes}<VotingBtns id={comment.id} downvote={vote}
                                                                            upvote={vote}/></div>
           </div>
         </div>
@@ -65,7 +65,7 @@ const PostWithComments = ({
       currentComment: currentPost.id,
       idSearch: Number(e.id),
       text: e.text.commentTxt,
-      autor: currentUser.username
+      author: currentUser.username
     });
     setCurrentPost(res);
   };

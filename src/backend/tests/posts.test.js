@@ -6,15 +6,16 @@ import { startServer } from '../server';
 const port = 3003;
 let app;
 
-beforeEach(() => {
-  app = startServer(port);
-});
-
-afterEach(() => app.close());
 
 const request = supertest(`http://localhost:${port}`);
 
 describe('backend tests', () => {
+
+  beforeEach(() => {
+    app = startServer(port);
+  });
+
+  afterEach(() => app.close());
   test('"/" returns all posts', async () => {
     const {
       error,
@@ -28,7 +29,7 @@ describe('backend tests', () => {
   });
   test('"/new_comment" should create a new comment', async () => {
     const newResourceBody = {
-      autor: 'Georgi',
+      author: 'Georgi',
       currentComment: 0,
       idSearch: 0,
       text: 'test'
@@ -43,7 +44,7 @@ describe('backend tests', () => {
       id: 4,
       text: 'test',
       upvotes: 0,
-      autor: 'Georgi',
+      author: 'Georgi',
       children: []
     };
     expect(body.children[1]).toEqual(expectedBody);
@@ -82,7 +83,7 @@ describe('backend tests', () => {
   });
   test('"/new_post" should make new post', async () => {
     const newResourceBody = {
-      autor: 'Dimitar',
+      author: 'Dimitar',
       text: 'Comment',
       title: 'Test title'
     };
@@ -97,11 +98,25 @@ describe('backend tests', () => {
       title: 'Test title',
       text: 'Comment',
       upvotes: 0,
-      autor: 'Dimitar',
+      author: 'Dimitar',
       children: []
     };
     expect(body.length).toBe(3);
     expect(body[2]).toEqual(expectedBody);
+    expect(error).toBe(false);
+    expect(status).toBe(200);
+  });
+  test('"/delete_post" should delete the post with the given id', async () => {
+    const newResourceBody = {
+      idSearch: 2
+    };
+    const {
+      error,
+      status,
+      body
+    } = await request.delete('/delete_post').send(newResourceBody);
+    console.log(body)
+    expect(body.length).toBe(2);
     expect(error).toBe(false);
     expect(status).toBe(200);
   });

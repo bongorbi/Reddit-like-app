@@ -13,7 +13,7 @@ contains all the endpoints of the server.
 Contains basic Login page to identify the current user and stores all the users in array in the Local storage. Contains
 Posts.js file that stores all the posts that came from the backend trough requests and displays them on the fron page.
 Every user can upvote and downvote the posts and can make new ones. Everyone can open a specific post and there can see
-all the comments, upvotes, downvotes, and autor of the post. Every user can reply to the post or the comments of the
+all the comments, upvotes, downvotes, and author of the post. Every user can reply to the post or the comments of the
 post and can upvote or downvore them. After all the user can logout and the app goes on the login page.
 
 ## Install

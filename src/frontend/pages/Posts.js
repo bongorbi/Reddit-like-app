@@ -47,6 +47,17 @@ const Posts = () => {
       history.push('/');
     }
 
+    async function deletePost(id) {
+      try {
+        const updatedPosts = await request(`${basicURL}delete_post`, 'DELETE', {
+          idSearch: Number(id)
+        });
+        setResponse(updatedPosts)
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
     function clickPost(e) {
       setPostId(e.target.id);
       setOpenComments(!openComments);
@@ -59,10 +70,9 @@ const Posts = () => {
     }
 
     async function newPost(e) {
-      console.log(e);
       try {
         const updatedPosts = await request(`${basicURL}new_post`, 'POST', {
-          autor: currentUser.username,
+          author: currentUser.username,
           title: e.titleTxt,
           text: e.commentTxt
         });
@@ -93,6 +103,7 @@ const Posts = () => {
     function openOrCloseCommentBox() {
       setShowCommentTxtBox(!showCommentTxtBox);
     }
+
     // rendering the header buttons and the posts
     return (
       <div className="wrapper">
@@ -111,7 +122,8 @@ const Posts = () => {
           {!openComments &&
           <>
             <h1 className="topic">Topics</h1>
-            <Post posts={response} sendId={vote} clickPost={clickPost}/>
+            <Post posts={response} sendId={vote} clickPost={clickPost} deletePostById={deletePost}
+                  currentUser={currentUser?.username}/>
             <div onClick={openOrCloseCommentBox}><p className="mousePointer">Create new post:</p></div>
             {showCommentTxtBox &&
             <TextareaWithButton sendText={newPost} showTitleField={true}>New Post</TextareaWithButton>

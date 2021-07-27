@@ -1,5 +1,5 @@
 // test data
-const posts = [
+let posts = [
   {
     id: 0,
     title: 'TITLE FOR POST',
@@ -7,7 +7,7 @@ const posts = [
       ' Nullam auctor nibh sapien, a dapibus quam hendrerit nec. ' +
       'Nunc metus lacus, finibus vel mi id, porttitor consequat diam.',
     upvotes: 0,
-    autor: 'Vasil',
+    author: 'Vasil',
     children: [
       {
         id: 1,
@@ -17,7 +17,7 @@ const posts = [
           ' Morbi venenatis diam quis turpis pulvinar, nec vestibulum lorem egestas. ' +
           'Morbi ac posuere dui. ',
         upvotes: 0,
-        autor: 'Pesho',
+        author: 'Pesho',
         children: []
       }
     ]
@@ -32,13 +32,13 @@ const posts = [
       'Nullam sit amet lobortis turpis, eget hendrerit odio.' +
       ' Etiam lacinia justo elementum tortor efficitur, euismod ultricies lectus facilisis.',
     upvotes: 0,
-    autor: 'Vasil',
+    author: 'Vasil',
     children: [
       {
         id: 3,
         text: 'i\'m a comment1',
         upvotes: 0,
-        autor: 'Pesho',
+        author: 'Pesho',
         children: []
       }
     ]
@@ -58,11 +58,11 @@ const idSetter = () => {
 export const createNewPost = ({
   title,
   text,
-  autor
+  author
 }) => {
   posts.push({
     id: idSetter(),
-    autor,
+    author,
     title,
     text,
     upvotes: 0,
@@ -96,7 +96,7 @@ export const createNewComment = ({
   currentComment,
   idSearch,
   text,
-  autor
+  author
 }) => {
   const currentPost = posts.filter(post => post.id === currentComment);
   const comment = findComment({
@@ -107,7 +107,7 @@ export const createNewComment = ({
     id: idSetter(),
     text,
     upvotes: 0,
-    autor: autor,
+    author: author,
     children: []
   };
   comment.children.push(newComment);
@@ -149,6 +149,12 @@ export const commentVoting = ({
       break;
   }
   return currentPost[0];
+};
+export const deletingPost = ({
+  idSearch
+}) => {
+  posts = posts.filter(post => post.id !== idSearch);
+  return posts;
 };
 
 
