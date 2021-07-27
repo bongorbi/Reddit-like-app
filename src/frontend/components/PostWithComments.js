@@ -11,16 +11,12 @@ const PostWithComments = ({
   currentUser,
   id
 }) => {
-
   const [currentPost, setCurrentPost] = useState(posts[id]);
-  // const [showCommentTxtBox, setShowCommentTxtBox] = useState(false);
-
   const commentText = (e) => e.target.value;
-
   const DetailsForComment = ({
     comment,
     sendTxt,
-    margin,
+    margin
   }) => {
     function sendTextAndIdFromTxtbox(e) {
       sendTxt({
@@ -41,11 +37,6 @@ const PostWithComments = ({
         console.log(e);
       }
     }
-
-    // function openOrCloseCommentBox(e) {
-    //   console.log(e.target.id);
-    //   setShowCommentTxtBox(!showCommentTxtBox);
-    // }
 
     async function vote(e) {
       switch (true) {
@@ -68,19 +59,9 @@ const PostWithComments = ({
                                                                            upvote={vote}/></div>
           </div>
         </div>
-        {/*<p*/}
-        {/*  className='mousePointer'*/}
-        {/*  id={comment.id}*/}
-        {/*  onClick={openOrCloseCommentBox}> Reply*/}
-        {/*</p>*/}
-        {/*{*/}
-        {/*  showCommentTxtBox &&*/}
-        {/*  <>*/}
-            <TextareaWithButton id={comment.id}
-                                OnBlur={commentText}
-                                sendText={sendTextAndIdFromTxtbox}/>
-      {/*</>*/}
-      {/*  }*/}
+        <TextareaWithButton id={comment.id}
+                            OnBlur={commentText}
+                            sendText={sendTextAndIdFromTxtbox}/>
       </div>
     );
   };
