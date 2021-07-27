@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import './post.scss';
 import VotingBtns from './VotingBtns';
-import { useState } from 'react';
 
 const Post = ({
   posts,

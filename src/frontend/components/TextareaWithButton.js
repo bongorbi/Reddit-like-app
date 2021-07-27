@@ -28,10 +28,12 @@ const TextareaWithButton = ({
   return (
     <div className="txtWithButton">
       {showTitleField &&
-      <textarea placeholder="Title..." onBlur={titleText} title={title}/>
+      <input placeholder="Title..." onBlur={titleText} title={title}/>
       }
-      <textarea placeholder="Comment..." cols="50" rows="3" id={id} onBlur={commentText}/>
-      <button onClick={onClick}>Send</button>
+      <div className='txtAreaWithBtn'>
+        <textarea placeholder="Comment..."  rows="3" id={id} onBlur={commentText}/>
+        <button onClick={onClick}>Send</button>
+      </div>
     </div>
   );
 };

@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 0 5%;
+    padding: 5%;
   }
 
   & .comment {
@@ -17,24 +17,50 @@
     border-left: 1px outset darksalmon;
     padding: 0 0 5px 5px;
     margin: 5px 0;
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+
+      & .commentInfo {
+
+        & > .text {
+        }
+
+        & .details {
+          font-size: 0.8rem;
+          display: flex;
+          justify-content: flex-start;
+          flex-direction: row;
+
+          & > div {
+            width: 100%;
+          }
+        }
+
+        & button {
+          margin: 0 5px;
+        }
+      }
+    }
   }
 
 
 }
 
-.commentInfo {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  &> button{
-    margin: 0 5px;
-  }
-}
 
 .txtWithButton {
   display: flex;
-
-  & > textarea {
-    resize: none;
+  flex-direction: column;
+  &>input {
+    margin-bottom: 10px;
+    width: 200px;
+  }
+  &>.txtAreaWithBtn {
+  display: flex;
+    & > textarea {
+      width: 100%;
+      resize: none;
+    }
   }
 }
