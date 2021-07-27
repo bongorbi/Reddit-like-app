@@ -53,10 +53,11 @@ const PostWithComments = ({
   };
 
   const sendComment = async (e) => {
+    console.log(e)
     const res = await request(`${basicURL}new_comment`, 'POST', {
       currentComment: currentPost.id,
       idSearch: Number(e.id),
-      text: e.text
+      text: e.text.commentTxt
     });
     setCurrentPost(res);
   };

@@ -20,11 +20,13 @@ export const postNewComment = ({
 };
 export const postNewPost = ({
   text,
-  autor
+  autor,
+  title
 }) => {
   return createNewPost({
     text,
-    autor
+    autor,
+    title
   });
 };
 export const vote = ({

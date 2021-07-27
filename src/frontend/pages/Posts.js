@@ -61,12 +61,14 @@ const Posts = () => {
   }
 
   async function newPost(e) {
+    console.log(e);
     try {
       const updatedPosts = await request(`${basicURL}new_post`, 'POST', {
         autor: currentUser.username,
-        text: e
+        title: e.titleTxt,
+        text: e.commentTxt
       });
-      setResponse(updatedPosts)
+      setResponse(updatedPosts);
     } catch (e) {
       console.log(e);
     }
@@ -116,7 +118,7 @@ const Posts = () => {
           <h1 className="topic">Topics</h1>
           <Post posts={response} sendId={vote} clickPost={clickPost}/>
           <p>Create new post:</p>
-          <TextareaWithButton sendText={newPost}>New Post</TextareaWithButton>
+          <TextareaWithButton sendText={newPost} showTitleField={true}>New Post</TextareaWithButton>
         </>
         }
         {openComments &&

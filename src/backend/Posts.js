@@ -97,11 +97,27 @@ const posts = [
         children: []
       }
     ]
+  },
+  {
+    id: 2,
+    title: 'Hello',
+    text: 'asd',
+    upvotes: 0,
+    autor: 'Vasil',
+    children: [
+      {
+        id: 3,
+        text: 'i\'m a comment1',
+        upvotes: 0,
+        autor: 'Pesho',
+        children: []
+      }
+    ]
   }
 ];
 
 // latest ID of a comment (represents a db count)
-let id = 1;
+let id = 3;
 
 export const returnPosts = () => {
   return posts;
@@ -110,13 +126,15 @@ const idSetter = () => {
   return ++id;
 };
 export const createNewPost = ({
+  title,
   text,
   autor
 }) => {
   posts.push({
     id: idSetter(),
-    autor: autor,
-    title: text,
+    autor,
+    title,
+    text,
     upvotes: 0,
     children: []
   });
@@ -148,21 +166,20 @@ export const createNewComment = ({
   idSearch,
   text
 }) => {
+  const currentPost = posts.filter(post => post.id === currentComment);
   const comment = findComment({
-    currentComment: posts[currentComment],
-    idSearch,
-    text
+    currentComment: currentPost[0],
+    idSearch
   });
   const newComment = {
     id: idSetter(),
-    autor: comment.autor,
     text,
-    title: comment.text,
     upvotes: 0,
+    autor: comment.autor,
     children: []
   };
   comment.children.push(newComment);
-  return posts[currentComment];
+  return currentPost[0];
 };
 
 export const postVoting = ({

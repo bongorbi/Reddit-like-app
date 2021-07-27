@@ -3,21 +3,34 @@ import './postWithComments.scss';
 
 const TextareaWithButton = ({
   id,
-  sendText
+  sendText,
+  title,
+  showTitleField
 }) => {
-  const [text, setText] = useState('');
+  const [commentTxt, setComment] = useState('');
+  const [titleTxt, setTitle] = useState('');
 
-  function onBlur(e) {
-    setText(e.target.value);
+  function commentText(e) {
+    setComment(e.target.value);
+  }
+
+  function titleText(e) {
+    setTitle(e.target.value);
   }
 
   function onClick() {
-    sendText(text);
+    sendText({
+      commentTxt,
+      titleTxt
+    });
   }
 
   return (
     <div className="txtWithButton">
-      <textarea cols="50" rows="3" id={id} onBlur={onBlur}/>
+      {showTitleField &&
+      <textarea placeholder="Title..." onBlur={titleText} title={title}/>
+      }
+      <textarea placeholder="Comment..." cols="50" rows="3" id={id} onBlur={commentText}/>
       <button onClick={onClick}>Send</button>
     </div>
   );
