@@ -16,4 +16,4 @@ function request(url, method, body = '') {
     });
 }
 
-export default request
+export default request;

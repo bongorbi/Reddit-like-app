@@ -52,12 +52,15 @@
 .txtWithButton {
   display: flex;
   flex-direction: column;
-  &>input {
+
+  & > input {
     margin-bottom: 10px;
     width: 200px;
   }
-  &>.txtAreaWithBtn {
-  display: flex;
+
+  & > .txtAreaWithBtn {
+    display: flex;
+
     & > textarea {
       width: 100%;
       resize: none;

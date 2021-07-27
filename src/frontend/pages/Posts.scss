@@ -6,14 +6,16 @@
   & > div {
     width: 80%;
   }
+
   @media only screen and (min-width: 1000px) {
     & > div {
       width: 60%;
     }
-    &  .header {
+    & .header {
       width: 60%;
     }
   }
+
   & .topic {
     display: flex;
     justify-content: center;
