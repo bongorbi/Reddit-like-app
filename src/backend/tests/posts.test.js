@@ -119,4 +119,27 @@ describe('backend tests', () => {
     expect(error).toBe(false);
     expect(status).toBe(200);
   });
+  test('"/edit_post" should edit the post with the given id', async () => {
+    const newResourceBody = {
+      currentComment: 0,
+      idSearch: 1,
+      text: 'qwerty'
+    };
+    const expectedBody = {
+      id: 1,
+      text: 'qwerty',
+      upvotes: 0,
+      author: 'Pesho',
+      children: []
+    };
+    const {
+      error,
+      status,
+      body
+    } = await request.put('/edit_comment').send(newResourceBody);
+    console.log(body)
+    expect(body).toEqual(expectedBody);
+    expect(error).toBe(false);
+    expect(status).toBe(200);
+  });
 });
