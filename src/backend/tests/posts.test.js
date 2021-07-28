@@ -115,7 +115,6 @@ describe('backend tests', () => {
       status,
       body
     } = await request.delete('/delete_post').send(newResourceBody);
-    console.log(body)
     expect(body.length).toBe(2);
     expect(error).toBe(false);
     expect(status).toBe(200);

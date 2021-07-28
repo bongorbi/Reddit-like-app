@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import './post.scss';
-import VotingBtns from './VotingBtns';
+import ManipulatingButton from './ManipulatingButton';
 
 const Post = ({
   posts,
@@ -11,7 +11,6 @@ const Post = ({
 }) => {
 
   function onClick(post) {
-    console.log(post.target.id);
     sendId({
       id: post.target.id,
       name: post.target.name
@@ -30,7 +29,7 @@ const Post = ({
             <p onClick={clickPost} id={index}>/ Author: {post.author}</p>
             <p onClick={clickPost} id={index}> / Upvotes: {post.upvotes}</p>
           </div>
-          <VotingBtns id={post.id} downvote={onClick} upvote={onClick}/>
+          <ManipulatingButton id={post.id} downvote={onClick} upvote={onClick}/>
           {post.author === currentUser &&
           <button id={post.id} onClick={deletePost}>✗</button>
           }

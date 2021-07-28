@@ -1,4 +1,12 @@
-import { postVoting, createNewComment, createNewPost, returnPosts, commentVoting, deletingPost } from './Posts';
+import {
+  postVoting,
+  createNewComment,
+  createNewPost,
+  returnPosts,
+  commentVoting,
+  deletingPost,
+  editingComment
+} from './Posts';
 
 export const getAllPosts = () => {
   return {
@@ -56,5 +64,16 @@ export const deletePost = ({
 }) => {
   return deletingPost({
     idSearch
+  });
+};
+export const editComment = ({
+  currentComment,
+  idSearch,
+  text
+}) => {
+  return editingComment({
+    currentComment,
+    idSearch,
+    text
   });
 };

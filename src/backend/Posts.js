@@ -150,6 +150,19 @@ export const commentVoting = ({
   }
   return currentPost[0];
 };
+export const editingComment = ({
+  currentComment,
+  idSearch,
+  text
+}) => {
+  const currentPost = posts.filter(post => post.id === currentComment);
+  const comment = findComment({
+    currentComment: currentPost[0],
+    idSearch
+  });
+  comment.text = text;
+  return currentPost[0];
+};
 export const deletingPost = ({
   idSearch
 }) => {

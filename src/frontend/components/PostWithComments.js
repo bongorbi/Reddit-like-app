@@ -4,7 +4,7 @@ import request from '../utils/requester';
 import './postWithComments.scss';
 import { basicURL } from '../utils/commonconstants';
 import { useState } from 'react';
-import VotingBtns from './VotingBtns';
+import ManipulatingButton from './ManipulatingButton';
 import { updateVote } from '../utils/votingFunctions';
 
 const PostWithComments = ({
@@ -13,6 +13,9 @@ const PostWithComments = ({
   id
 }) => {
   const [currentPost, setCurrentPost] = useState(posts[id]);
+  const [openTxtBox, setopenTxtBox] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [openTxtBoxID, setopenTxtBoxID] = useState();
   const commentText = (e) => e.target.value;
 
   const DetailsForComment = ({
@@ -41,6 +44,18 @@ const PostWithComments = ({
       }
     }
 
+    function openOrCloseTxtBox(e) {
+      if (openTxtBox) {
+        clearTxtBoxState();
+      }
+      setopenTxtBoxID(Number(e.target.id));
+      setopenTxtBox(!openTxtBox);
+    }
+
+    function enableEditing(e) {
+      openOrCloseTxtBox(e);
+      setEditing(true);
+    }
 
     // comment component that goes right if it is a child comment; including details for commment and controlls for the user
     return (
@@ -49,17 +64,53 @@ const PostWithComments = ({
           <div className="commentInfo">
             <div className="text">{comment.text}</div>
             <div className="details">
-              Author: {comment.author} Upvotes: {comment.upvotes}<VotingBtns id={comment.id} downvote={vote}
-                                                                           upvote={vote}/></div>
+              Author: {comment.author} Upvotes: {comment.upvotes}
+              <ManipulatingButton id={comment.id} downvote={vote}
+                                  upvote={vote}/></div>
           </div>
         </div>
-        <TextareaWithButton id={comment.id}
-                            OnBlur={commentText}
-                            sendText={sendTextAndIdFromTxtbox}/>
+        {(openTxtBox && openTxtBoxID === comment.id) ?
+          <>
+            <div className="mousePointer" id={comment.id} onClick={openOrCloseTxtBox}>Cancel</div>
+            <TextareaWithButton id={comment.id}
+                                OnBlur={commentText}
+                                sendText={sendTextAndIdFromTxtbox}/>
+          </> :
+          <div className="mousePointer" id={comment.id} onClick={openOrCloseTxtBox}>Reply</div>
+        } {currentUser.username === comment.author &&
+      <div className="mousePointer" id={comment.id} onClick={enableEditing}>Edit</div>
+      }
       </div>
     );
   };
 
+  function clearTxtBoxState() {
+    setEditing(false);
+    setopenTxtBoxID(undefined);
+    setopenTxtBox(false);
+  }
+
+  // PUT request for updating the comment text
+  async function editPost(e) {
+    try {
+      const updatedComments = await request(`${basicURL}edit_comment`, 'PUT', {
+        text: e.text.commentTxt,
+        idSearch: e.id,
+        currentComment: currentPost.id
+      });
+      setCurrentPost(updatedComments);
+    } catch (e) {
+    }
+  }
+
+  const sendOrEdit = async (e) => {
+    if (editing) {
+      await editPost(e);
+    } else {
+      await sendComment(e);
+    }
+    clearTxtBoxState();
+  };
   const sendComment = async (e) => {
     const res = await request(`${basicURL}new_comment`, 'POST', {
       currentComment: currentPost.id,
@@ -81,7 +132,7 @@ const PostWithComments = ({
   }) => {
     return (
       <>
-        <DetailsForComment margin={marginSetter(indent)} comment={comment} sendTxt={sendComment}/>
+        <DetailsForComment margin={marginSetter(indent)} comment={comment} sendTxt={sendOrEdit}/>
         {comment.children?.map((child, index) => {
           return (
             <>

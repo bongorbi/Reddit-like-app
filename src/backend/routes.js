@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import { deletePost, getAllPosts, postNewComment, postNewPost, vote } from './methods';
+import { deletePost, editComment, getAllPosts, postNewComment, postNewPost, vote } from './methods';
 import { commentVoting } from './Posts';
 
 const router = new Router();
@@ -41,6 +41,13 @@ router.get('/', async (ctx) => {
   router.delete('/delete_post', async (ctx) => {
     let bodyParams = ctx.request.body;
     let post = deletePost(bodyParams);
+    ctx.response.status = 200;
+    ctx.body = post;
+  });
+  //editing comment
+  router.put('/edit_comment', async (ctx) => {
+    let bodyParams = ctx.request.body;
+    let post = editComment(bodyParams);
     ctx.response.status = 200;
     ctx.body = post;
   });
