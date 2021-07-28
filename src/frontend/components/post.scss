@@ -1,4 +1,4 @@
-.post {
+.postContainer {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
@@ -7,18 +7,32 @@
   border-bottom: 2px outset salmon;
   border-left: 1px outset darksalmon;
   margin: 0 0 10px 0;
-
-  & > div {
+  .post {
     display: flex;
-    flex-direction: row;
-  }
+    flex-direction: column;
+    & > p {
+      padding: 0 5px;
+      cursor: pointer;
+      border-bottom: 1px solid;
+    }
+    & > div {
+      display: flex;
 
-  & p {
-    padding: 0 5px;
-    cursor: pointer;
-  }
+      & > p {
+        padding: 0 5px;
+        cursor: pointer;
+        border-bottom: 1px solid;
+      }
 
-  & > * {
-    margin: 10px;
+      &.postDetails {
+        display: flex;
+        font-size: 0.8rem;
+      }
+
+    }
+
+    & > * {
+      margin: 10px;
+    }
   }
 }

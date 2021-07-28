@@ -4,17 +4,17 @@ The application is something like a simple reddit for posts. It has backend and 
 
 ## Backend
 
-Contains koa server which is working on port 3002. Contains Posts.js file that stores the test data and the methods for
+Contains koa server which is working on port 3002. Contains Posts.js file in the backend directory that stores the test data and the methods for
 it. Methods.js file maps and contains the exported methods from posts.test.js and exports them to the router.js. Router.js
 contains all the endpoints of the server.
 
 ## Frontend
 
 Contains basic Login page to identify the current user and stores all the users in array in the Local storage. Contains
-Posts.js file that stores all the posts that came from the backend trough requests and displays them on the fron page.
+Posts.js file in the frontend directory that stores all the posts that came from the backend trough requests and displays them on the fron page.
 Every user can upvote and downvote the posts and can make new ones. Everyone can open a specific post and there can see
 all the comments, upvotes, downvotes, and author of the post. Every user can reply to the post or the comments of the
-post and can upvote or downvore them. After all the user can logout and the app goes on the login page.
+post and can edit upvote or downvore them. Only the authors of the comments can edit their comments and delete their posts. After all the user can logout and the app goes on the login page.
 
 ## Install
 

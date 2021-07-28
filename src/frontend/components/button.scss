@@ -7,9 +7,8 @@ button {
   min-height: var(--btnMinHeight, 100%);
   box-sizing: border-box;
   border: 1px black solid;
-  border-radius: 2px;
+  border-radius: 3px;
   border-bottom: 2px outset;
-  border-left: 2px outset;
   background-color: #ff3b00a8;
   color: black;
   display: flex;
@@ -21,5 +20,6 @@ button {
   cursor: pointer;
   padding: 5px;
   font-size: 1rem;
+  margin-right: 10px;
   min-width: 50px;
 }

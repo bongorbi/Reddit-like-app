@@ -66,7 +66,7 @@ const PostWithComments = ({
             <div className="details">
               Author: {comment.author} Upvotes: {comment.upvotes}
               <VotingBtns id={comment.id} downvote={vote}
-                                  upvote={vote}/></div>
+                          upvote={vote}/></div>
           </div>
         </div>
         {(openTxtBox && openTxtBoxID === comment.id) ?
@@ -76,10 +76,12 @@ const PostWithComments = ({
                                 OnBlur={commentText}
                                 sendText={sendTextAndIdFromTxtbox}/>
           </> :
-          <div className="mousePointer" id={comment.id} onClick={openOrCloseTxtBox}>Reply</div>
-        } {currentUser.username === comment.author &&
-      <div className="mousePointer" id={comment.id} onClick={enableEditing}>Edit</div>
-      }
+          <div className="mousePointer" id={comment.id}
+               onClick={openOrCloseTxtBox}>Reply
+            {currentUser.username === comment.author &&
+          <div className="mousePointer" id={comment.id} onClick={enableEditing}>Edit</div>
+          }</div>
+        }
       </div>
     );
   };

@@ -36,7 +36,7 @@ let posts = [
     children: [
       {
         id: 3,
-        text: 'i\'m a comment1',
+        text: 'i\'m a comment',
         upvotes: 0,
         author: 'Pesho',
         children: []
