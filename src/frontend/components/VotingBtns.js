@@ -1,4 +1,4 @@
-const ManipulatingButton = ({
+const VotingBtns = ({
   upvote,
   downvote,
   id,
@@ -12,4 +12,4 @@ const ManipulatingButton = ({
   );
 };
 
-export default ManipulatingButton;
+export default VotingBtns;

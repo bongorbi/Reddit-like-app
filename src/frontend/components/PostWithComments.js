@@ -4,7 +4,7 @@ import request from '../utils/requester';
 import './postWithComments.scss';
 import { basicURL } from '../utils/commonconstants';
 import { useState } from 'react';
-import ManipulatingButton from './ManipulatingButton';
+import VotingBtns from './VotingBtns';
 import { updateVote } from '../utils/votingFunctions';
 
 const PostWithComments = ({
@@ -65,7 +65,7 @@ const PostWithComments = ({
             <div className="text">{comment.text}</div>
             <div className="details">
               Author: {comment.author} Upvotes: {comment.upvotes}
-              <ManipulatingButton id={comment.id} downvote={vote}
+              <VotingBtns id={comment.id} downvote={vote}
                                   upvote={vote}/></div>
           </div>
         </div>
